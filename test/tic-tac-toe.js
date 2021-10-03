@@ -68,7 +68,6 @@ describe('TicTacToe', () => {
   context('(Simulate 4X4 board)', () => {
     it('Simulate 4X4 Board', () => {
       const model = new Board(4, 4)
-      // generate random numbers between [0,8], to get random cell index
       const min = 0
       const max = 15
       const moves = 200
@@ -78,6 +77,29 @@ describe('TicTacToe', () => {
           case model.boardStates.Finished:
             model.print()
             model.reset()
+            break
+          default:
+            break
+        }
+        const cellIndex = Math.floor(Math.random() * (max - min + 1)) + min
+        model.makeMove(cellIndex)
+      }
+      assert.strictEqual(i, moves)
+    })
+  })
+
+  context('(Simulate 5X5 board)', () => {
+    it('Simulate 5X5 Board', () => {
+      const model = new Board(5, 5)
+      const min = 0
+      const max = 24
+      const moves = 400
+      let i = 0
+      for (; i < moves; ++i) {
+        switch (model.currentBoardState.BoardState) {
+          case model.boardStates.Finished:
+            model.printBoard()
+            model.resetBoard()
             break
           default:
             break
