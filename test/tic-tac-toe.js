@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 const assert = require('assert')
-const Board = require('../src/tic-tac-toe/model')
+const Board = require('../src/tic-tac-toe/board')
 
 describe('TicTacToe', () => {
   context('(InitializeBoard)', () => {
@@ -52,8 +52,8 @@ describe('TicTacToe', () => {
       for (; i < moves; ++i) {
         switch (ticktacmodel.currentBoardState.BoardState) {
           case ticktacmodel.boardStates.Finished:
-            ticktacmodel.printBoard()
-            ticktacmodel.resetBoard()
+            ticktacmodel.print()
+            ticktacmodel.reset()
             break
           default:
             break
@@ -76,8 +76,8 @@ describe('TicTacToe', () => {
       for (; i < moves; ++i) {
         switch (model.currentBoardState.BoardState) {
           case model.boardStates.Finished:
-            model.printBoard()
-            model.resetBoard()
+            model.print()
+            model.reset()
             break
           default:
             break

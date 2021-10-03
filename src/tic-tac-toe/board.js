@@ -108,7 +108,7 @@ class Board {
     this.currentBoardState.Message = `Player ${this.symbol} turn`
   }
 
-  resetBoard () {
+  reset () {
     this.board.forEach((arr) => arr.fill(0, 0))
     this.symbol = this.symbolX
     this.currentBoardState = { BoardState: this.boardStates.Ready, Player: this.symbol, Message: `Player ${this.symbolX} turn` }
@@ -181,7 +181,7 @@ class Board {
     return this.board.length === 0
   }
 
-  printBoard () {
+  print () {
     //    O | O | O
     //   ---|---|---
     //    X | X | X
