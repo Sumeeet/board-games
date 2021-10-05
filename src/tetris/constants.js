@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 'use strict'
 
-const SYMBOLS = ['I', 'J', 'L', 'O', 'S', 'T', 'Z']
+const SYMBOLS = [' ', 'I', 'J', 'L', 'O', 'S', 'T', 'Z']
 Object.freeze(SYMBOLS)
 
 const SYMBOLS_MAP = {

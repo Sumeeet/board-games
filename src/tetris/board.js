@@ -56,7 +56,9 @@ const Board = (width = 10, height = 20, offset = 1) => {
   const canRowCollapse = row => row.every(value => value !== 0)
 
   // public api's
-  const isBoardEmpty = () => board.length === 0
+  const isBoardInitialized = () => board.length === 0
+
+  const isBoardEmpty = () => board[height - 1].every(cell => cell === 0)
 
   const isBoardFull = () => board[0].some(cell => cell !== 0)
 
@@ -91,7 +93,7 @@ const Board = (width = 10, height = 20, offset = 1) => {
   const setState = (newState) => { state = newState }
 
   const print = () => {
-    if (isBoardEmpty()) {
+    if (isBoardInitialized()) {
       console.error(`Empty board ${board}. Initialize board first.`)
       return
     }
@@ -116,7 +118,7 @@ const Board = (width = 10, height = 20, offset = 1) => {
     console.log('')
   }
 
-  return { moveBlock, clear: reset, print, isBoardFull, state, board, getState, setState, keepWithinBoard, isBlockFloat, isValidMove }
+  return { moveBlock, clear: reset, print, isBoardEmpty, isBoardFull, state, board, getState, setState, keepWithinBoard, isBlockFloat, isValidMove }
 }
 
 module.exports = { Board }
