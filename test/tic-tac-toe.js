@@ -90,22 +90,22 @@ describe('TicTacToe', () => {
 
   context('(Simulate 5X5 board)', () => {
     it('Simulate 5X5 Board', () => {
-      const model = new Board(5, 5)
+      const board = new Board(5, 5)
       const min = 0
       const max = 24
       const moves = 400
       let i = 0
       for (; i < moves; ++i) {
-        switch (model.currentBoardState.BoardState) {
-          case model.boardStates.Finished:
-            model.printBoard()
-            model.resetBoard()
+        switch (board.currentBoardState.BoardState) {
+          case board.boardStates.Finished:
+            board.print()
+            board.reset()
             break
           default:
             break
         }
         const cellIndex = Math.floor(Math.random() * (max - min + 1)) + min
-        model.makeMove(cellIndex)
+        board.makeMove(cellIndex)
       }
       assert.strictEqual(i, moves)
     })

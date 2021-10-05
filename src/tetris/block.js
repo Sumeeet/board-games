@@ -5,22 +5,8 @@ const { SYMBOLS_MAP, SYMBOLS } = require('./constants')
 const Block = (row = -1, column = 3, symbol = null) => {
   let symbols = []
   let matrix = []
-  const size = { width: 0, height: 0 };
-
-  (() => {
-    if (!symbol) {
-      if (symbols.length === 0) symbols = [...SYMBOLS]
-      const index = getRandomNumber(1, symbols.length)
-      symbol = symbols[index]
-
-      matrix = getBoundedSymbolValue(SYMBOLS_MAP[symbol])
-      symbols.splice(index, 1)
-    } else {
-      matrix = getBoundedSymbolValue(SYMBOLS_MAP[symbol])
-    }
-    size.width = matrix[0].length
-    size.height = matrix.length
-  })()
+  const size = { width: 0, height: 0 }
+  const position = { row, column }
 
   const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - 1 - min)) + min
 
@@ -37,10 +23,10 @@ const Block = (row = -1, column = 3, symbol = null) => {
 
   const reverse = matrix => matrix.map(row => row.reverse())
 
-  const rotate = (matrix, nTimes, rotate) => {
+  const rotateAux = (matrix, nTimes, rotate) => {
     if (nTimes === 0) return matrix
     const rotMatrix = rotate(matrix)
-    return rotate(rotMatrix, --nTimes, rotate)
+    return rotateAux(rotMatrix, --nTimes, rotate)
   }
 
   const getBoundedSymbolValue = (matrix) => {
@@ -62,11 +48,26 @@ const Block = (row = -1, column = 3, symbol = null) => {
     return matrix.slice(rowStart, rowEnd + 1).map(row => row.slice(colStart, colEnd + 1))
   }
 
-  const rotate90ClockWise = (matrix, nTimes = 1) => rotate(matrix, nTimes, compose(transpose, reverse))
+  (() => {
+    if (!symbol) {
+      if (symbols.length === 0) symbols = [...SYMBOLS]
+      const index = getRandomNumber(1, symbols.length)
+      symbol = symbols[index]
 
-  const rotate90AntiClockWise = (matrix, nTimes = 1) => rotate(matrix, nTimes, compose(transpose, flipVertical))
+      matrix = getBoundedSymbolValue(SYMBOLS_MAP[symbol])
+      symbols.splice(index, 1)
+    } else {
+      matrix = getBoundedSymbolValue(SYMBOLS_MAP[symbol])
+    }
+    size.width = matrix[0].length
+    size.height = matrix.length
+  })()
 
-  return { getBoundedSymbolValue, rotate90ClockWise, rotate90AntiClockWise }
+  const rotate90ClockWise = (matrix, nTimes = 1) => rotateAux(matrix, nTimes, compose(transpose, reverse))
+
+  const rotate90AntiClockWise = (matrix, nTimes = 1) => rotateAux(matrix, nTimes, compose(transpose, flipVertical))
+
+  return { matrix, size, position, getBoundedSymbolValue, rotate90ClockWise, rotate90AntiClockWise }
 }
 
 module.exports = { Block }

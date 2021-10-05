@@ -28,7 +28,9 @@ const Board = (width = 10, height = 20, offset = 1) => {
       if (canRowCollapse(row)) {
         board.splice(board.indexOf(row), 1)
         board.unshift(Array(width).fill(0))
+        return true
       }
+      return false
     })
   }
 
