@@ -7,20 +7,21 @@ class Block {
     this.symbols = []
     this.matrix = []
     this.symbol = symbol
+    this.boundedMatrix = []
 
     this.position = { row, column }
 
-    if (!symbol) {
+    if (!this.symbol) {
       if (this.symbols.length === 0) this.symbols = [...SYMBOLS]
       const index = this.getRandomNumber(1, this.symbols.length)
       this.symbol = this.symbols[index]
       this.matrix = SYMBOLS_MAP[this.symbol]
       this.symbols.splice(index, 1)
     } else {
-      this.matrix = SYMBOLS_MAP[symbol]
+      this.matrix = SYMBOLS_MAP[this.symbol]
     }
-    // const boundedMatrix = this.getBoundedSymbolValue()
-    this.size = { width: this.matrix[0].length, height: this.matrix.length }
+    this.boundedMatrix = this.getBoundedSymbolValue()
+    this.size = { width: this.boundedMatrix[0].length, height: this.boundedMatrix.length }
   }
 
   equal (block) {
@@ -75,6 +76,8 @@ class Block {
     const rotatedMatrix = this.rotateAux([...this.matrix], nTimes, this.compose(this.transpose, this.reverse))
     const block = new Block(this.position.row, this.position.column, this.symbol)
     block.matrix = rotatedMatrix
+    block.boundedMatrix = block.getBoundedSymbolValue()
+    block.size = { width: block.boundedMatrix[0].length, height: block.boundedMatrix.length }
     return block
   }
 
@@ -82,6 +85,8 @@ class Block {
     const rotatedMatrix = this.rotateAux([...this.matrix], nTimes, this.compose(this.transpose, this.flipVertical))
     const block = new Block(this.position.row, this.position.column, this.symbol)
     block.matrix = rotatedMatrix
+    block.boundedMatrix = block.getBoundedSymbolValue()
+    block.size = { width: block.boundedMatrix[0].length, height: block.boundedMatrix.length }
     return block
   }
 }

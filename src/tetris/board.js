@@ -35,7 +35,7 @@ const Board = (width = 10, height = 20, offset = 1) => {
   }
 
   const merge = (block) => {
-    block.matrix.forEach((row, ri) => {
+    block.boundedMatrix.forEach((row, ri) => {
       row.forEach((value, ci) => {
         const row = block.position.row + ri
         if (row >= 0) {
@@ -48,7 +48,7 @@ const Board = (width = 10, height = 20, offset = 1) => {
   const isBlockFloat = (block) => block.position.row + block.size.height < height
 
   const isValidMove = (row, column, block) => {
-    return block.matrix.every((srow, ri) => {
+    return block.boundedMatrix.every((srow, ri) => {
       return srow.every((value, ci) => (value === 0 || board[row + ri][column + ci] === 0))
     })
   }
