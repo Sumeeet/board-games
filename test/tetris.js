@@ -9,7 +9,7 @@ describe('Tetris', () => {
   context('(Symbols)', () => {
     it('RotateSymbol', () => {
       function rotateSymbols (s, rotate) {
-        const block = Block.Block(-1, 3, s)
+        const block = new Block.Block(-1, 3, s)
         const rotBlock = rotate(block, 4)
         block.equal(rotBlock)
       }
@@ -19,32 +19,32 @@ describe('Tetris', () => {
     })
 
     it('GetBoundedSymbolValue', () => {
-      let block = Block.Block(-1, 3, 'I')
+      let block = new Block.Block(-1, 3, 'I')
       assert.deepEqual(block.getBoundedSymbolValue(), [[1, 1, 1, 1]])
 
-      block = Block.Block(-1, 3, 'J')
+      block = new Block.Block(-1, 3, 'J')
       assert.deepEqual(block.getBoundedSymbolValue(), [[0, 0, 2], [2, 2, 2]])
 
-      block = Block.Block(-1, 3, 'L')
+      block = new Block.Block(-1, 3, 'L')
       assert.deepEqual(block.getBoundedSymbolValue(), [[3, 0, 0], [3, 3, 3]])
 
-      block = Block.Block(-1, 3, 'O')
+      block = new Block.Block(-1, 3, 'O')
       assert.deepEqual(block.getBoundedSymbolValue(), [[4, 4], [4, 4]])
 
-      block = Block.Block(-1, 3, 'S')
+      block = new Block.Block(-1, 3, 'S')
       assert.deepEqual(block.getBoundedSymbolValue(), [[0, 5, 5], [5, 5, 0]])
 
-      block = Block.Block(-1, 3, 'T')
+      block = new Block.Block(-1, 3, 'T')
       assert.deepEqual(block.getBoundedSymbolValue(), [[0, 6, 0], [6, 6, 6]])
 
-      block = Block.Block(-1, 3, 'Z')
+      block = new Block.Block(-1, 3, 'Z')
       assert.deepEqual(block.getBoundedSymbolValue(), [[7, 7, 0], [0, 7, 7]])
     })
 
     it('RotateBoundedSymbol', () => {
-      function rotateSymbols (symbol, rotate) {
-        const orgMatrix = Constants.SYMBOLS_MAP[symbol]
-        return rotate(orgMatrix, 2)
+      function rotateSymbols (s, rotate) {
+        const block = new Block.Block(-1, 3, s)
+        return rotate(block, 2)
       }
 
       const expectedBoundedSymbol = [
@@ -63,12 +63,12 @@ describe('Tetris', () => {
         }
       }
 
-      const rotateSymbCWFunc = (matrix, nTimes) => block.rotate90ClockWise(matrix, nTimes)
-      const actualCWBoundedSymbols = Constants.SYMBOLS.slice(1, 8).map(s => rotateSymbols(s, rotateSymbCWFunc)).map(actual => block.getBoundedSymbolValue(actual))
+      const rotateSymbCWFunc = (block, nTimes) => block.rotate90ClockWise(nTimes)
+      const actualCWBoundedSymbols = Constants.SYMBOLS.slice(1, 8).map(s => rotateSymbols(s, rotateSymbCWFunc)).map(block => block.getBoundedSymbolValue())
       deepEqual(actualCWBoundedSymbols, expectedBoundedSymbol)
 
-      const rotateSymbACWFunc = (matrix, nTimes) => block.rotate90AntiClockWise(matrix, nTimes)
-      const actualACWBoundedSymbols = Constants.SYMBOLS.slice(1, 8).map(s => rotateSymbols(s, rotateSymbACWFunc)).map(actual => block.getBoundedSymbolValue(actual))
+      const rotateSymbACWFunc = (block, nTimes) => block.rotate90AntiClockWise(nTimes)
+      const actualACWBoundedSymbols = Constants.SYMBOLS.slice(1, 8).map(s => rotateSymbols(s, rotateSymbACWFunc)).map(block => block.getBoundedSymbolValue())
       deepEqual(actualACWBoundedSymbols, expectedBoundedSymbol)
     })
   })
@@ -83,13 +83,13 @@ describe('Tetris', () => {
       while (!board.isBoardFull()) {
         const state = board.getState()
         if (state === Constants.BOARDSTATES.Ready) {
-          block = Block.Block()
+          block = new Block.Block()
           block.position.column = getRandomCol(0, 10)
           board.moveBlock(block)
         } else if (state === Constants.BOARDSTATES.BlockInMotion) {
           board.moveBlock(block)
         } else if (state === Constants.BOARDSTATES.BlockPlaced) {
-          block = Block.Block()
+          block = new Block.Block()
           block.position.column = getRandomCol(0, 10)
           board.setState(Constants.BOARDSTATES.BlockInMotion)
         }
@@ -103,27 +103,27 @@ describe('Tetris', () => {
       let block
       // 2 rows of O block
       for (let i = 0; i < 5; ++i) {
-        block = Block.Block(20, i * 2, 'O')
+        block = new Block.Block(20, i * 2, 'O')
         board.moveBlock(block)
       }
       assert.equal(true, board.isBoardEmpty())
       board.print()
 
       // a row containing L, 180 rotated L, O, 2 I's
-      block = Block.Block(20, 0, 'L')
+      block = new Block.Block(20, 0, 'L')
       board.moveBlock(block)
 
-      block = Block.Block(20, 0, 'L')
+      block = new Block.Block(20, 0, 'L')
       block.rotate90ClockWise(2)
       board.moveBlock(block)
 
-      block = Block.Block(20, 0, 'L')
+      block = new Block.Block(20, 0, 'L')
       board.moveBlock(block)
 
-      block = Block.Block(20, 0, 'L')
+      block = new Block.Block(20, 0, 'L')
       board.moveBlock(block)
 
-      block = Block.Block(20, 0, 'L')
+      block = new Block.Block(20, 0, 'L')
       board.moveBlock(block)
       board.print()
     })
