@@ -1,0 +1,113 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: 200px 150px;
+    grid-template-rows: 400px 150px;
+    column-gap: 5px;
+    row-gap: 5px;
+    margin: 10px;
+}
+
+#board {    
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+#boardcanvas {
+    background-color: rgb(177, 186, 196);
+    border: 1px solid;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+.gamecontrols {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+}
+
+.gameinfo {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#nextcanvas {
+    background-color: rgb(177, 186, 196);
+    border: 1px solid;
+    margin-top: 10px;
+}
+
+p {
+    margin-top: 10px;
+}
+
+.toolbar {
+    display: flex;
+    flex-direction: column;
+}
+
+#left {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 4;    
+}
+
+#right {
+    grid-column-start: 4;
+    grid-column-end: 6;
+    grid-row-start: 2;
+    grid-row-end: 4;    
+}
+
+#rcw {
+    grid-column-start: 7;
+    grid-column-end: 9;
+    grid-row-start: 4;
+    grid-row-end: 6;    
+}
+
+#down {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 5;
+    grid-row-end: 7;
+}
+
+#play {
+    background-color: green;
+    font-size: large;
+    margin-bottom: 5px;
+    padding: 10px;
+}
+
+#pause {
+    font-size: large;
+    margin-bottom: 5px;
+    padding: 10px;
+}
+
+#reset {
+    font-size: large;
+    margin-bottom: 5px;
+    padding: 10px;
+}

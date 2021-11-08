@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="tetris.css">
+    </head>
+
+    <body>
+        <div class="main">
+            <div id="board">
+                <canvas id="boardcanvas" width="200" height="400"></canvas>
+            </div>
+            <!-- <div class="gamecontrols">
+                <button name="Left" id="left" class="controlbutton" type="button">Left</button>
+                <button name="Right" id="right" class="controlbutton" type="button">Right</button>                    
+                <button name="Rotate CW" id="rcw" class="controlbutton" type="button">Rotate CW</button>
+                <button name="Down" id="down" class="controlbutton" type="button">Down</button>
+            </div> -->
+            <div class="gameinfo">
+                <div class="scoreboard">
+                    <p>TETRIS</p>
+                    <p>Level: <span id="level">0</span></p>
+                    <p>Score: <span id="score">0</span></p>
+                    <canvas id="nextcanvas" width="80" height="80"></canvas>
+                </div>
+                <div class="toolbar">
+                    <button name="play" id="play">Play</button>
+                    <button name="pause" id="pause">Pause</button>
+                    <button name="reset" id="reset">Reset</button>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script src="constants.js"></script>
+    <script src="board.js"></script>
+    <script src="block.js"></script>
+    <script src="main.js"></script>
+
+</html>

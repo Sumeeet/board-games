@@ -1,6 +1,6 @@
 'use strict'
 
-const { BOARDSTATES, SYMBOLS } = require('./constants')
+// const { BOARDSTATES, SYMBOLS, COLORS } = require('./constants')
 
 function Board (width = 10, height = 20, offset = 1) {
   let state = BOARDSTATES.Ready
@@ -33,7 +33,7 @@ function Board (width = 10, height = 20, offset = 1) {
   }
 
   const merge = (block) => {
-    const boundedMatrix = block.getBoundedSymbolValue()
+    const boundedMatrix = block.boundedMatrix
     boundedMatrix.forEach((row, ri) => {
       row.forEach((value, ci) => {
         const row = block.position.row + ri
@@ -47,7 +47,7 @@ function Board (width = 10, height = 20, offset = 1) {
   const isBlockFloat = (block) => block.position.row + block.size.height < height
 
   const isValidMove = (row, column, block) => {
-    const boundedMatrix = block.getBoundedSymbolValue()
+    const boundedMatrix = block.boundedMatrix
     return boundedMatrix.every((srow, ri) => {
       return srow.every((value, ci) => (value === 0 || board[row + ri][column + ci] === 0))
     })
@@ -92,6 +92,17 @@ function Board (width = 10, height = 20, offset = 1) {
 
   const setState = (newState) => { state = newState }
 
+  const drawBoard = (context) => {
+    board.forEach((row, ri) => {
+      row.forEach((value, ci) => {
+        if (value > 0) {
+          context.fillStyle = COLORS[value]
+          context.fillRect(ci, ri, 1, 1)
+        }
+      })
+    })
+  }
+
   const print = () => {
     if (isBoardInitialized()) {
       console.error(`Empty board ${board}. Initialize board first.`)
@@ -118,7 +129,7 @@ function Board (width = 10, height = 20, offset = 1) {
     console.log('')
   }
 
-  return { moveBlock, reset, print, isBoardEmpty, isBoardFull, state, board, getState, setState, keepWithinBoard, isBlockFloat, isValidMove }
+  return { moveBlock, reset, print, isBoardEmpty, isBoardFull, state, board, getState, setState, drawBoard, keepWithinBoard, isBlockFloat, isValidMove }
 }
 
-module.exports = { Board }
+// module.exports = { Board }
