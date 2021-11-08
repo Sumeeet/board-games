@@ -11,7 +11,7 @@ describe('Tetris', () => {
       function rotateSymbols (s, rotate) {
         const block = new Block.Block(-1, 3, s)
         const rotBlock = rotate(block, 4)
-        block.equal(rotBlock)
+        block.isEqual(rotBlock)
       }
 
       Constants.SYMBOLS.slice(1, 8).forEach(s => rotateSymbols(s, (block, nTimes) => block.rotate90ClockWise(nTimes)))
@@ -20,25 +20,25 @@ describe('Tetris', () => {
 
     it('GetBoundedSymbolValue', () => {
       let block = new Block.Block(-1, 3, 'I')
-      assert.deepEqual(block.boundedMatrix, [[1, 1, 1, 1]])
+      assert.deepEqual(block.getBoundedSymbolValue(), [[1, 1, 1, 1]])
 
       block = new Block.Block(-1, 3, 'J')
-      assert.deepEqual(block.boundedMatrix, [[0, 0, 2], [2, 2, 2]])
+      assert.deepEqual(block.getBoundedSymbolValue(), [[0, 0, 2], [2, 2, 2]])
 
       block = new Block.Block(-1, 3, 'L')
-      assert.deepEqual(block.boundedMatrix, [[3, 0, 0], [3, 3, 3]])
+      assert.deepEqual(block.getBoundedSymbolValue(), [[3, 0, 0], [3, 3, 3]])
 
       block = new Block.Block(-1, 3, 'O')
-      assert.deepEqual(block.boundedMatrix, [[4, 4], [4, 4]])
+      assert.deepEqual(block.getBoundedSymbolValue(), [[4, 4], [4, 4]])
 
       block = new Block.Block(-1, 3, 'S')
-      assert.deepEqual(block.boundedMatrix, [[0, 5, 5], [5, 5, 0]])
+      assert.deepEqual(block.getBoundedSymbolValue(), [[0, 5, 5], [5, 5, 0]])
 
       block = new Block.Block(-1, 3, 'T')
-      assert.deepEqual(block.boundedMatrix, [[0, 6, 0], [6, 6, 6]])
+      assert.deepEqual(block.getBoundedSymbolValue(), [[0, 6, 0], [6, 6, 6]])
 
       block = new Block.Block(-1, 3, 'Z')
-      assert.deepEqual(block.boundedMatrix, [[7, 7, 0], [0, 7, 7]])
+      assert.deepEqual(block.getBoundedSymbolValue(), [[7, 7, 0], [0, 7, 7]])
     })
 
     it('RotateBoundedSymbol', () => {
@@ -64,18 +64,18 @@ describe('Tetris', () => {
       }
 
       const rotateSymbCWFunc = (block, nTimes) => block.rotate90ClockWise(nTimes)
-      const actualCWBoundedSymbols = Constants.SYMBOLS.slice(1, 8).map(s => rotateSymbols(s, rotateSymbCWFunc)).map(block => block.boundedMatrix)
+      const actualCWBoundedSymbols = Constants.SYMBOLS.slice(1, 8).map(s => rotateSymbols(s, rotateSymbCWFunc)).map(block => block.getBoundedSymbolValue())
       deepEqual(actualCWBoundedSymbols, expectedBoundedSymbol)
 
       const rotateSymbACWFunc = (block, nTimes) => block.rotate90AntiClockWise(nTimes)
-      const actualACWBoundedSymbols = Constants.SYMBOLS.slice(1, 8).map(s => rotateSymbols(s, rotateSymbACWFunc)).map(block => block.boundedMatrix)
+      const actualACWBoundedSymbols = Constants.SYMBOLS.slice(1, 8).map(s => rotateSymbols(s, rotateSymbACWFunc)).map(block => block.getBoundedSymbolValue())
       deepEqual(actualACWBoundedSymbols, expectedBoundedSymbol)
     })
   })
 
   context(('Board'), () => {
     it('fillRandomSymbol', () => {
-      const board = Board.Board()
+      const board = new Board.Board()
       const getRandomValue = (min, max) => Math.floor(Math.random() * (max - min)) + min
       const getRandomCol = (min, max) => getRandomValue(min, max)
 
@@ -83,14 +83,14 @@ describe('Tetris', () => {
       while (!board.isBoardFull()) {
         const state = board.getState()
         if (state === Constants.BOARDSTATES.Ready) {
-          block = new Block.Block()
-          block.position.column = getRandomCol(0, 10)
+          const column = getRandomCol(0, 10)
+          block = new Block.Block(-1, column)
           board.moveBlock(block)
         } else if (state === Constants.BOARDSTATES.BlockInMotion) {
           board.moveBlock(block)
         } else if (state === Constants.BOARDSTATES.BlockPlaced) {
-          block = new Block.Block()
-          block.position.column = getRandomCol(0, 10)
+          const column = getRandomCol(0, 10)
+          block = new Block.Block(row = -1, column)
           board.setState(Constants.BOARDSTATES.BlockInMotion)
         }
       }
@@ -99,7 +99,7 @@ describe('Tetris', () => {
     })
 
     it('collapseBoardRow', () => {
-      const board = Board.Board()
+      const board = new Board.Board()
 
       let block
       // 2 rows of O block

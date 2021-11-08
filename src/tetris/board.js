@@ -2,24 +2,22 @@
 
 const { BOARDSTATES, SYMBOLS } = require('./constants')
 
-const Board = (width = 10, height = 20, offset = 1) => {
+function Board (width = 10, height = 20, offset = 1) {
   let state = BOARDSTATES.Ready
   const board = Array.from({ length: height }, () => Array(width).fill(0))
 
   const keepWithinBoard = (block) => {
     const boardLeftEdge = 0
     const boardRightEdge = width - 1
-    const symbolWidth = block.size.width
     block.position.column = Math.min(Math.max(boardLeftEdge, block.position.column), boardRightEdge)
-    if (block.position.column + symbolWidth > width) {
-      block.position.column = width - symbolWidth
+    if (block.position.column + block.size.width > width) {
+      block.position.column = width - block.size.width
     }
 
     const boardBottomEdge = height - 1
-    const symbolHeight = block.size.height
     block.position.row = Math.min(boardBottomEdge, block.position.row)
-    if (block.position.row + symbolHeight > height) {
-      block.position.row = height - symbolHeight
+    if (block.position.row + block.size.height > height) {
+      block.position.row = height - block.size.height
     }
   }
 
@@ -35,7 +33,8 @@ const Board = (width = 10, height = 20, offset = 1) => {
   }
 
   const merge = (block) => {
-    block.boundedMatrix.forEach((row, ri) => {
+    const boundedMatrix = block.getBoundedSymbolValue()
+    boundedMatrix.forEach((row, ri) => {
       row.forEach((value, ci) => {
         const row = block.position.row + ri
         if (row >= 0) {
@@ -48,7 +47,8 @@ const Board = (width = 10, height = 20, offset = 1) => {
   const isBlockFloat = (block) => block.position.row + block.size.height < height
 
   const isValidMove = (row, column, block) => {
-    return block.boundedMatrix.every((srow, ri) => {
+    const boundedMatrix = block.getBoundedSymbolValue()
+    return boundedMatrix.every((srow, ri) => {
       return srow.every((value, ci) => (value === 0 || board[row + ri][column + ci] === 0))
     })
   }
@@ -118,7 +118,7 @@ const Board = (width = 10, height = 20, offset = 1) => {
     console.log('')
   }
 
-  return { moveBlock, clear: reset, print, isBoardEmpty, isBoardFull, state, board, getState, setState, keepWithinBoard, isBlockFloat, isValidMove }
+  return { moveBlock, reset, print, isBoardEmpty, isBoardFull, state, board, getState, setState, keepWithinBoard, isBlockFloat, isValidMove }
 }
 
 module.exports = { Board }
