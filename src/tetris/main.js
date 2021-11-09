@@ -4,7 +4,18 @@
 let block, context, nextContext, oldTimeStamp, timeElapsed//, fps
 const level = 200
 let requestId = null
+let symbols = []
 const board = new Board()
+
+const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - 1 - min)) + min
+
+const getRandomSymbol = () => {
+  if (symbols.length <= 1) symbols = [...SYMBOLS]
+  const index = getRandomNumber(1, symbols.length)
+  const symbol = symbols[index]
+  symbols.splice(index, 1)
+  return symbol
+}
 
 window.onload = () => {
   // get reference to canvas context
@@ -63,12 +74,14 @@ const gameLoop = (timestamp = 0) => {
     }
     const state = board.getState()
     if (state === BOARDSTATES.Ready) {
-      block = new Block()
+      const symbol = getRandomSymbol()
+      block = new Block(-1, 3, symbol)
       board.moveBlock(block)
     } else if (state === BOARDSTATES.BlockInMotion) {
       board.moveBlock(block)
     } else if (state === BOARDSTATES.BlockPlaced) {
-      block = new Block()
+      const symbol = getRandomSymbol()
+      block = new Block(-1, 3, symbol)
       board.setState(BOARDSTATES.BlockInMotion)
     }
   }

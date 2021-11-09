@@ -76,26 +76,36 @@ describe('Tetris', () => {
   context(('Board'), () => {
     it('fillRandomSymbol', () => {
       const board = new Board.Board()
+      let symbols = []
       const getRandomValue = (min, max) => Math.floor(Math.random() * (max - min)) + min
+      const getRandomSymbol = () => {
+        if (symbols.length <= 1) symbols = [...Constants.SYMBOLS]
+        const index = getRandomValue(1, symbols.length)
+        const symbol = symbols[index]
+        symbols.splice(index, 1)
+        return symbol
+      }
       const getRandomCol = (min, max) => getRandomValue(min, max)
 
       let block
-      while (!board.isBoardFull()) {
-        const state = board.getState()
-        if (state === Constants.BOARDSTATES.Ready) {
-          const column = getRandomCol(0, 10)
-          block = new Block.Block(-1, column)
-          board.moveBlock(block)
-        } else if (state === Constants.BOARDSTATES.BlockInMotion) {
-          board.moveBlock(block)
-        } else if (state === Constants.BOARDSTATES.BlockPlaced) {
-          const column = getRandomCol(0, 10)
-          block = new Block.Block(row = -1, column)
-          board.setState(Constants.BOARDSTATES.BlockInMotion)
+      for (let boards = 0; boards < 4; boards++) {
+        while (!board.isBoardFull()) {
+          const state = board.getState()
+          if (state === Constants.BOARDSTATES.Ready) {
+            const column = getRandomCol(0, 10)
+            block = new Block.Block(row = -1, column, getRandomSymbol())
+            board.moveBlock(block)
+          } else if (state === Constants.BOARDSTATES.BlockInMotion) {
+            board.moveBlock(block)
+          } else if (state === Constants.BOARDSTATES.BlockPlaced) {
+            const column = getRandomCol(0, 10)
+            block = new Block.Block(row = -1, column, getRandomSymbol())
+            board.setState(Constants.BOARDSTATES.BlockInMotion)
+          }
         }
+        board.print()
+        board.reset()
       }
-
-      board.print()
     })
 
     it('collapseBoardRow', () => {

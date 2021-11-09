@@ -1,6 +1,6 @@
 'use strict'
 
-// const { BOARDSTATES, SYMBOLS, COLORS } = require('./constants')
+const { BOARDSTATES, SYMBOLS, COLORS } = require('./constants')
 
 function Board (width = 10, height = 20, offset = 1) {
   let state = BOARDSTATES.Ready
@@ -132,4 +132,4 @@ function Board (width = 10, height = 20, offset = 1) {
   return { moveBlock, reset, print, isBoardEmpty, isBoardFull, state, board, getState, setState, drawBoard, keepWithinBoard, isBlockFloat, isValidMove }
 }
 
-// module.exports = { Board }
+module.exports = { Board }

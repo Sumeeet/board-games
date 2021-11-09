@@ -1,10 +1,9 @@
 'use strict'
 
-// const { SYMBOLS_MAP, SYMBOLS } = require('./constants')
+const { SYMBOLS_MAP } = require('./constants')
 
 function Block (row = -1, column = 3, symbol = null) {
   let matrix = []
-  let symbols = []
   let boundedMatrix = []
   const position = { row: row, column: column }
   let size = { width: 0, height: 0 }
@@ -14,8 +13,6 @@ function Block (row = -1, column = 3, symbol = null) {
     if (boundedMatrix.length !== blockMatrix.length) return false
     return boundedMatrix.some((row, index) => blockMatrix[index].some((e, i) => row[i] !== e))
   }
-
-  const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - 1 - min)) + min
 
   const clipToBounds = (matrix) => {
     const rowEmpty = row => row.every(value => value === 0)
@@ -56,16 +53,7 @@ function Block (row = -1, column = 3, symbol = null) {
   };
 
   (() => {
-    if (!symbol) {
-      if (symbols.length === 0) symbols = [...SYMBOLS]
-      const index = getRandomNumber(1, symbols.length)
-      symbol = symbols[index]
-      matrix = SYMBOLS_MAP[symbol]
-      symbols.splice(index, 1)
-    } else {
-      matrix = SYMBOLS_MAP[symbol]
-    }
-
+    matrix = SYMBOLS_MAP[symbol]
     boundedMatrix = clipToBounds(matrix)
     size = { width: boundedMatrix[0].length, height: boundedMatrix.length }
   })()
@@ -89,4 +77,4 @@ function Block (row = -1, column = 3, symbol = null) {
   return { rotate90ClockWise, rotate90AntiClockWise, boundedMatrix, matrix, size, position, isEqual }
 }
 
-// module.exports = { Block }
+module.exports = { Block }
