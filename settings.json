@@ -1,0 +1,10 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": ["javascript", "json"],
+  "eslint.workingDirectories": [
+    { "pattern": "modern-tetris" }
+  ],
+  "editor.formatOnSave": false
+}

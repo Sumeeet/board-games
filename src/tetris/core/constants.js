@@ -13,9 +13,9 @@ export const TETROMINOES = {
       [0, 0, 0, 0],
       [1, 1, 1, 1],
       [0, 0, 0, 0],
-      [0, 0, 0, 0]
+      [0, 0, 0, 0],
     ],
-    color: '#00ffff' // Cyan
+    color: "#00ffff", // Cyan
   },
   // J
   // #...
@@ -27,9 +27,9 @@ export const TETROMINOES = {
       [1, 0, 0, 0],
       [1, 1, 1, 0],
       [0, 0, 0, 0],
-      [0, 0, 0, 0]
+      [0, 0, 0, 0],
     ],
-    color: '#0000ff' // Blue
+    color: "#0000ff", // Blue
   },
   // L
   // ..#.
@@ -41,9 +41,9 @@ export const TETROMINOES = {
       [0, 0, 1, 0],
       [1, 1, 1, 0],
       [0, 0, 0, 0],
-      [0, 0, 0, 0]
+      [0, 0, 0, 0],
     ],
-    color: '#ff7f00' // Orange
+    color: "#ff7f00", // Orange
   },
   // O
   // .##.
@@ -55,9 +55,9 @@ export const TETROMINOES = {
       [0, 1, 1, 0],
       [0, 1, 1, 0],
       [0, 0, 0, 0],
-      [0, 0, 0, 0]
+      [0, 0, 0, 0],
     ],
-    color: '#ffff00' // Yellow
+    color: "#ffff00", // Yellow
   },
   // S
   // .##.
@@ -69,9 +69,9 @@ export const TETROMINOES = {
       [0, 1, 1, 0],
       [1, 1, 0, 0],
       [0, 0, 0, 0],
-      [0, 0, 0, 0]
+      [0, 0, 0, 0],
     ],
-    color: '#00ff00' // Green
+    color: "#00ff00", // Green
   },
   // T
   // .#..
@@ -83,9 +83,9 @@ export const TETROMINOES = {
       [0, 1, 0, 0],
       [1, 1, 1, 0],
       [0, 0, 0, 0],
-      [0, 0, 0, 0]
+      [0, 0, 0, 0],
     ],
-    color: '#800080' // Purple
+    color: "#800080", // Purple
   },
   // Z
   // ##..
@@ -97,14 +97,14 @@ export const TETROMINOES = {
       [1, 1, 0, 0],
       [0, 1, 1, 0],
       [0, 0, 0, 0],
-      [0, 0, 0, 0]
+      [0, 0, 0, 0],
     ],
-    color: '#ff0000' // Red
-  }
+    color: "#ff0000", // Red
+  },
 };
 Object.freeze(TETROMINOES);
 
 export const DIRECTION = Object.freeze({
-  CLOCKWISE: 'clockwise',
-  ANTICLOCKWISE: 'anticlockwise'
+  CLOCKWISE: "clockwise",
+  ANTICLOCKWISE: "anticlockwise",
 });

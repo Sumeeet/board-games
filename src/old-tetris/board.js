@@ -1,4 +1,4 @@
-import { BOARDSTATES, SYMBOLS, COLORS } from './constants.js';
+import { BOARDSTATES, SYMBOLS, COLORS } from "../old-tetris/constants.js";
 
 export function Board(width = 10, height = 20, offset = 1) {
   let state = BOARDSTATES.Ready;
@@ -7,7 +7,10 @@ export function Board(width = 10, height = 20, offset = 1) {
   const keepWithinBoard = (block) => {
     const boardLeftEdge = 0;
     const boardRightEdge = width - 1;
-    block.position.column = Math.min(Math.max(boardLeftEdge, block.position.column), boardRightEdge);
+    block.position.column = Math.min(
+      Math.max(boardLeftEdge, block.position.column),
+      boardRightEdge,
+    );
     if (block.position.column + block.size.width > width) {
       block.position.column = width - block.size.width;
     }
@@ -20,7 +23,7 @@ export function Board(width = 10, height = 20, offset = 1) {
   };
 
   const collapse = () => {
-    board.map(row => {
+    board.map((row) => {
       if (canRowCollapse(row)) {
         board.splice(board.indexOf(row), 1);
         board.unshift(Array(width).fill(0));
@@ -42,21 +45,24 @@ export function Board(width = 10, height = 20, offset = 1) {
     });
   };
 
-  const isBlockFloat = (block) => block.position.row + block.size.height < height;
+  const isBlockFloat = (block) =>
+    block.position.row + block.size.height < height;
 
   const isValidMove = (row, column, block) => {
     const boundedMatrix = block.boundedMatrix;
     return boundedMatrix.every((srow, ri) => {
-      return srow.every((value, ci) => (value === 0 || board[row + ri][column + ci] === 0));
+      return srow.every(
+        (value, ci) => value === 0 || board[row + ri][column + ci] === 0,
+      );
     });
   };
 
-  const canRowCollapse = row => row.every(value => value !== 0);
+  const canRowCollapse = (row) => row.every((value) => value !== 0);
 
   // public api's
   const isBoardInitialized = () => board.length === 0;
-  const isBoardEmpty = () => board[height - 1].every(cell => cell === 0);
-  const isBoardFull = () => board[0].some(cell => cell !== 0);
+  const isBoardEmpty = () => board[height - 1].every((cell) => cell === 0);
+  const isBoardFull = () => board[0].some((cell) => cell !== 0);
 
   const moveBlock = (block) => {
     if (isBoardFull()) {
@@ -85,7 +91,9 @@ export function Board(width = 10, height = 20, offset = 1) {
   };
 
   const getState = () => state;
-  const setState = (newState) => { state = newState; };
+  const setState = (newState) => {
+    state = newState;
+  };
 
   const drawBoard = (context) => {
     board.forEach((row, ri) => {
@@ -109,20 +117,36 @@ export function Board(width = 10, height = 20, offset = 1) {
       return getEmptyRow(nCells - 1, cellLayout, rowLayout + cellLayout);
     };
 
-    const row = [...board[0].keys()].map(cell => cell);
+    const row = [...board[0].keys()].map((cell) => cell);
     console.log(` ${row.reduce((accum, value) => `${accum}   ${value}`)}`);
 
     for (let index = 0; index < height; index++) {
-      const rowSymbols = board[index].map(value => SYMBOLS[value]);
-      console.log(` ${rowSymbols.reduce((accum, value) => `${accum} | ${value}`)}   ${index}`);
+      const rowSymbols = board[index].map((value) => SYMBOLS[value]);
+      console.log(
+        ` ${rowSymbols.reduce((accum, value) => `${accum} | ${value}`)}   ${index}`,
+      );
 
       if (index < height - 1) {
-        const emptyRow = getEmptyRow(width, '---|', '');
+        const emptyRow = getEmptyRow(width, "---|", "");
         console.log(emptyRow.substring(0, emptyRow.length - 1));
       }
     }
-    console.log('');
+    console.log("");
   };
 
-  return { moveBlock, reset, print, isBoardEmpty, isBoardFull, state, board, getState, setState, drawBoard, keepWithinBoard, isBlockFloat, isValidMove };
+  return {
+    moveBlock,
+    reset,
+    print,
+    isBoardEmpty,
+    isBoardFull,
+    state,
+    board,
+    getState,
+    setState,
+    drawBoard,
+    keepWithinBoard,
+    isBlockFloat,
+    isValidMove,
+  };
 }

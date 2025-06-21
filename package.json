@@ -8,9 +8,10 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node --experimental-vm-modules node_modules/.bin/jest",
-    "lint": "eslint ./src",
-    "lint--fix": "eslint ./src --fix"
+    "lint": "eslint . --ext .js,.mjs,.cjs,.jsx,.ts,.tsx,.json",
+    "lint:fix": "eslint . --ext .js,.mjs,.cjs,.jsx,.ts,.tsx,.json --fix",
+    "format": "prettier --write \"**/*.{js,json,css,md}\"",
+    "test": "node --experimental-vm-modules ./node_modules/.bin/jest"
   },
   "repository": {
     "type": "git",
