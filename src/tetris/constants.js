@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 'use strict'
 
-const SYMBOLS = [' ', 'I', 'J', 'L', 'O', 'S', 'T', 'Z']
+export const SYMBOLS = [' ', 'I', 'J', 'L', 'O', 'S', 'T', 'Z']
 Object.freeze(SYMBOLS)
 
-const SYMBOLS_MAP = {
+export const SYMBOLS_MAP = {
   I: [[0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0]],
   J: [[0, 0, 2], [2, 2, 2], [0, 0, 0]],
   L: [[3, 0, 0], [3, 3, 3], [0, 0, 0]],
@@ -15,13 +15,11 @@ const SYMBOLS_MAP = {
 }
 Object.freeze(SYMBOLS_MAP)
 
-const COLORS = ['none', 'cyan', 'blue', 'orange', 'yellow', 'green', 'purple', 'red']
+export const COLORS = ['none', 'cyan', 'blue', 'orange', 'yellow', 'green', 'purple', 'red']
 Object.freeze(COLORS)
 
-const BOARDSTATES = { Ready: 'BoardReady', Full: 'BoardFull', BlockInMotion: 'BlockInMotion', BlockPlaced: 'BlockPlaced' }
+export const BOARDSTATES = { Ready: 'BoardReady', Full: 'BoardFull', BlockInMotion: 'BlockInMotion', BlockPlaced: 'BlockPlaced' }
 Object.freeze(BOARDSTATES)
 
-const KEYS = { ESC: 27, SPACE: 32, LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40, P: 80, Q: 81 }
+export const KEYS = { ESC: 27, SPACE: 32, LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40, P: 80, Q: 81 }
 Object.freeze(KEYS)
-
-module.exports = { SYMBOLS, SYMBOLS_MAP, BOARDSTATES }

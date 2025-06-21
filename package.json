@@ -2,9 +2,13 @@
   "name": "board-games",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",  
+  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "mocha ./test",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "lint": "eslint ./src",
     "lint--fix": "eslint ./src --fix"
   },
@@ -15,22 +19,20 @@
   "keywords": [
     "tic-tac-toe",
     "tetris",
-    "board",
-    "games",
-    "games"
+    "board games"
   ],
   "author": "Sumeet Khanna",
-  "license": "MIT",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/Sumeeet/board-games/issues"
   },
   "homepage": "https://github.com/Sumeeet/board-games#readme",
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.24.2",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.0",
-    "mocha": "^9.1.1"
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "prettier": "^3.0.0",
+    "vite": "^6.3.5",
+    "jest": "^30.0.2"
   }
 }

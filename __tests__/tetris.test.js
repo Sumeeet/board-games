@@ -1,12 +1,9 @@
-/* eslint-disable dot-notation */
-/* eslint-disable no-undef */
-const assert = require('assert')
-const Board = require('../src/tetris/board')
-const Constants = require('../src/tetris/constants')
-const Block = require('../src/tetris/block')
+import * as Block from '../src/tetris/block.js'
+import * as Board from '../src/tetris/board.js'
+import * as Constants from '../src/tetris/constants.js'
 
 describe('Tetris', () => {
-  context('(Symbols)', () => {
+  describe('(Symbols)', () => {
     it('RotateSymbol', () => {
       function rotateSymbols (s, rotate) {
         const block = new Block.Block(-1, 3, s)
@@ -20,25 +17,25 @@ describe('Tetris', () => {
 
     it('GetBoundedSymbolValue', () => {
       let block = new Block.Block(-1, 3, 'I')
-      assert.deepEqual(block.boundedMatrix, [[1, 1, 1, 1]])
+      expect(block.boundedMatrix).toEqual([[1, 1, 1, 1]])
 
       block = new Block.Block(-1, 3, 'J')
-      assert.deepEqual(block.boundedMatrix, [[0, 0, 2], [2, 2, 2]])
+      expect(block.boundedMatrix).toEqual([[0, 0, 2], [2, 2, 2]])
 
       block = new Block.Block(-1, 3, 'L')
-      assert.deepEqual(block.boundedMatrix, [[3, 0, 0], [3, 3, 3]])
+      expect(block.boundedMatrix).toEqual([[3, 0, 0], [3, 3, 3]])
 
       block = new Block.Block(-1, 3, 'O')
-      assert.deepEqual(block.boundedMatrix, [[4, 4], [4, 4]])
+      expect(block.boundedMatrix).toEqual([[4, 4], [4, 4]])
 
       block = new Block.Block(-1, 3, 'S')
-      assert.deepEqual(block.boundedMatrix, [[0, 5, 5], [5, 5, 0]])
+      expect(block.boundedMatrix).toEqual([[0, 5, 5], [5, 5, 0]])
 
       block = new Block.Block(-1, 3, 'T')
-      assert.deepEqual(block.boundedMatrix, [[0, 6, 0], [6, 6, 6]])
+      expect(block.boundedMatrix).toEqual([[0, 6, 0], [6, 6, 6]])
 
       block = new Block.Block(-1, 3, 'Z')
-      assert.deepEqual(block.boundedMatrix, [[7, 7, 0], [0, 7, 7]])
+      expect(block.boundedMatrix).toEqual([[7, 7, 0], [0, 7, 7]])
     })
 
     it('RotateBoundedSymbol', () => {
@@ -59,7 +56,7 @@ describe('Tetris', () => {
 
       const deepEqual = (actual, expected) => {
         for (let index = 0; index < actual.length; ++index) {
-          assert.deepEqual(actual[index], expected[index])
+          expect(actual[index]).toEqual(expected[index])
         }
       }
 
@@ -73,7 +70,7 @@ describe('Tetris', () => {
     })
   })
 
-  context(('Board'), () => {
+  describe(('Board'), () => {
     it('fillRandomSymbol', () => {
       const board = new Board.Board()
       let symbols = []
@@ -117,7 +114,7 @@ describe('Tetris', () => {
         block = new Block.Block(20, i * 2, 'O')
         board.moveBlock(block)
       }
-      assert.equal(true, board.isBoardEmpty())
+      expect(board.isBoardEmpty()).toBe(true)
       board.print()
 
       // a row containing L, 180 rotated L, O, 2 I's
@@ -138,7 +135,7 @@ describe('Tetris', () => {
       block = new Block.Block(20, 8, 'O')
       board.moveBlock(block)
 
-      assert.equal(true, board.isBoardEmpty())
+      expect(board.isBoardEmpty()).toBe(true)
       board.print()
     })
   })

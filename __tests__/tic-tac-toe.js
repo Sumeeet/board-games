@@ -1,9 +1,8 @@
-/* eslint-disable no-undef */
-const assert = require('assert')
-const Board = require('../src/tic-tac-toe/board')
+import { strict as assert } from 'assert'
+import { Board } from '../src/tic-tac-toe/board.js'
 
 describe('TicTacToe', () => {
-  context('(InitializeBoard)', () => {
+  describe('(InitializeBoard)', () => {
     it('Board state should be in Ready state', () => {
       const model = new Board()
       assert.strictEqual(model.currentBoardState.BoardState, 0)
@@ -11,7 +10,7 @@ describe('TicTacToe', () => {
     })
   })
 
-  context('(GetPlayer)', () => {
+  describe('(GetPlayer)', () => {
     it('Player 0 should be O and Player 1 should be X', () => {
       const ticktacmodel = new Board()
       assert.strictEqual(ticktacmodel.getSymbol(1), 'O')
@@ -19,7 +18,7 @@ describe('TicTacToe', () => {
     })
   })
 
-  context('(GetPlayerValue)', () => {
+  describe('(GetPlayerValue)', () => {
     it('Player 0 should be O and Plyaer 1 should be X', () => {
       const ticktacmodel = new Board()
       assert.strictEqual(ticktacmodel.getSymbolValue('O'), 1)
@@ -27,7 +26,7 @@ describe('TicTacToe', () => {
     })
   })
 
-  context('(IsValidBoardCell)', () => {
+  describe('(IsValidBoardCell)', () => {
     it('Board cell is not valid', () => {
       const ticktacmodel = new Board()
       const numbers = [-1, -2, 9, 10]
@@ -41,7 +40,7 @@ describe('TicTacToe', () => {
     })
   })
 
-  context('(Simulate 3X3 board)', () => {
+  describe('(Simulate 3X3 board)', () => {
     it('Simulate 3X3 Board', () => {
       const ticktacmodel = new Board()
       // generate random numbers between [0,8]
@@ -65,7 +64,7 @@ describe('TicTacToe', () => {
     })
   })
 
-  context('(Simulate 4X4 board)', () => {
+  describe('(Simulate 4X4 board)', () => {
     it('Simulate 4X4 Board', () => {
       const model = new Board(4, 4)
       const min = 0
@@ -88,7 +87,7 @@ describe('TicTacToe', () => {
     })
   })
 
-  context('(Simulate 5X5 board)', () => {
+  describe('(Simulate 5X5 board)', () => {
     it('Simulate 5X5 Board', () => {
       const board = new Board(5, 5)
       const min = 0

@@ -1,4 +1,4 @@
-class Board {
+export class Board {
   constructor (rows = 3, columns = 3) {
     this.rows = rows
     this.columns = columns
@@ -211,4 +211,3 @@ class Board {
     console.log('')
   }
 }
-module.exports = Board
